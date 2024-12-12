@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "composite": true, // 对于引用项目必须设置该属性
+
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],// 引入 ES 最新特性和 DOM 接口的类型定义
+    "skipLibCheck": true,
+
+
+    /* Bundler mode */
+    "moduleResolution": "node",
+    // "moduleResolution": "node", // 使用 Node/bundler 的模块解析策略
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "preserve",
+
+    /* Linting */
+    "strict": true,
+    // "strict": false,
+    "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    // "noUncheckedSideEffectImports": true,
+
+    /* Paths alias */
+    "baseUrl": ".",  // 确保项目根目录是 baseUrl
+    "paths": {
+      "@/*": ["src/*"]  // 设置路径别名 @ 指向 src 目录
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue","build/*.ts",],//专门用于 src 代码文件
+  "exclude": [ // 不需要检测的文件
+    "dist",
+    "**/*.js",
+    "node_modules"
+  ],
+}
