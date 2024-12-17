@@ -3,6 +3,7 @@ import {
   RefreshRight,
   MoreFilled,
   SuccessFilled,
+  WarningFilled,
 } from "@element-plus/icons-vue";
 import {
   cancelTask,
@@ -163,6 +164,13 @@ const formatCaseSource=(row: any, column: any, cellValue: number, index: any)=>{
             >
               <span>已取消</span>
             </div>
+            <div
+              class="buildStatusContent --flex-center --buildStatus-color--exceptional"
+              v-else-if="scope.row.generate_status === 4"
+            >
+            <el-icon class="--buildStatus-color--exceptional"><WarningFilled /></el-icon>
+              <span>异常</span>
+            </div>
           </div>
         </template>
       </el-table-column>
@@ -284,6 +292,7 @@ const formatCaseSource=(row: any, column: any, cellValue: number, index: any)=>{
   .isFinished {
     background-color: lightgreen;
   }
+
 }
 .operationsWrapper {
   .operationsContent {

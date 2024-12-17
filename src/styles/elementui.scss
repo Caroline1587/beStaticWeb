@@ -1,0 +1,67 @@
+.el-drawer__header {
+  margin-bottom: 0px;
+}
+
+:root {
+  --el-color-primary: #0B53FD;
+}
+
+.el-table .disableRow {
+  color: #a7a9ad;
+}
+
+.el-drawer__header {
+  padding: 20px;
+  padding-bottom: 0;
+}
+
+.el-drawer__footer {
+  padding: 0 20px 10px 20px;
+}
+
+.el-dialog__header {
+  padding: 20px;
+  word-break: break-all;
+}
+
+.el-dialog__body {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.el-dialog__footer {
+  padding: 20px;
+  padding-top: 10px;
+  text-align: right;
+  box-sizing: border-box;
+}
+
+.el-picker-panel__sidebar {
+  >button:first-child {
+    color: var(--el-color-primary);
+    margin: 5px 0;
+
+    &:hover {
+      color: var(--el-color-primary);
+      cursor: default;
+    }
+  }
+}
+
+.el-select-dropdown__empty {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.el-button.is-link {
+  border: transparent !important;
+}
+
+.el-radio-button__inner {
+  border: 1px solid #ccc;
+  border-left: 0;
+}
+
+.el-form-item__error {
+  z-index: 2
+}

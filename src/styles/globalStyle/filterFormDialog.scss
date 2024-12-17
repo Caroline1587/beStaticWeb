@@ -1,0 +1,33 @@
+.filterFormDialog{
+  height:auto;
+  max-height: 95%;
+  display: flex;
+  flex-direction: column;
+  .el-dialog__body{
+    height: 100%;
+    flex:1;
+    display: flex;
+    overflow: hidden;
+    .dialog-body{
+      width: 100%;
+    }
+  }
+  .filter-form-main{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    height: 100%;
+    overflow: hidden;
+    >.el-form{
+      .el-form-item{
+        width: 25%;
+        padding-left: 10px;
+        min-width: 270px;
+      }
+    }
+  }
+  .filter-form-container{
+    flex: 1;
+    overflow: hidden;
+  }
+}

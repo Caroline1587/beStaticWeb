@@ -25,6 +25,9 @@
 .--buildStatus-color--finished{
   color: #1DC872 ;
 }
+.--buildStatus-color--exceptional{
+  color: #de4e3c;
+}
 
 .--flex-center {
   display: flex;

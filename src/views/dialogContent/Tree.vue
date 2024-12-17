@@ -41,7 +41,7 @@
         :total="tableData.length"
         :visible-count="visibleCount" -->
     <div class="tableContainer">
-      <el-auto-resizer>
+      <!-- <el-auto-resizer>
       <template #default="{ height, width }">
         <el-table-v2
           :columns="columns"
@@ -51,9 +51,9 @@
            fixed
         />
       </template>
-    </el-auto-resizer>
+    </el-auto-resizer> -->
 
-      <!-- <el-table
+      <el-table
         ref="tableRef"
         :data="tableData"
         style="width: 100%"
@@ -62,11 +62,11 @@
         border
         @selection-change="handleSelectionChange"
   
-      > -->
+      >
         <!-- 表格的多选框 -->
-        <!-- <el-table-column type="selection" width="50px" fixed /> -->
+        <el-table-column type="selection" width="50px" fixed />
         <!-- 数据列 -->
-        <!-- <el-table-column
+        <el-table-column
           v-for="column in columns"
           :key="column.prop"
           :prop="column.prop"
@@ -75,7 +75,7 @@
           :min-width="column.minWidth"
           sortable
         />
-      </el-table> -->
+      </el-table>
     </div>
   </div>
 </template>
@@ -85,8 +85,10 @@ import type Node from "element-plus/es/components/tree/src/model/node";
 import {  ref, watch, defineEmits, nextTick } from "vue";
 import { getLinkedSequencesByTpaId } from "@/api";
 import {  ITestcase } from "@/types";
-import {useDebounce} from "@/hooks"
+import {useDebounce} from "@/hooks";
+
 const props=defineProps<{linkedId:string}>();
+// const props=defineProps();
 const linkedId=ref(props.linkedId)
 
 interface TreeNodeData {
@@ -109,20 +111,20 @@ const treeData = ref<TreeNodeData[]>([]);
 const allData = ref<any[]>([]);
 
 // 表格数据与列配置
-// interface TableColumn {
-//   label: string;
-//   prop: string;
-//   width?: string;
-//   minWidth?: string;
-// }
-
 interface TableColumn {
-  key: string;
-  dataKey: string;
-  title:string,
+  label: string;
+  prop: string;
   width?: string;
   minWidth?: string;
 }
+
+// interface TableColumn {
+//   key: string;
+//   dataKey: string;
+//   title:string,
+//   width?: string;
+//   minWidth?: string;
+// }
 const loading=ref(true)
 // const visibleCount = ref(20); // 默认可见行数
 // // row-key 函数，确保每一行有唯一的键
@@ -131,29 +133,29 @@ const loading=ref(true)
 //  const scrolling = ref(false);
 
 
-const columns = ref<TableColumn[]>([
-  {
-    key:"testcaseNumber",//唯一标志	
-    dataKey:"testcaseNumber",//data 的唯一标志符	
-    // prop: "testcaseNumber",
-    title: "用例编号",
-    minWidth: "20%",
-    width: "160px",
-  },
-  { key: "testcaseName", dataKey: "testcaseName",title: "用例名称", minWidth: "60%" },
-  { key: "priority",dataKey: "priority", title: "优先级", minWidth: "10%", width: "100px" },
-]);
-
 // const columns = ref<TableColumn[]>([
 //   {
-//     prop: "testcaseNumber",
-//     label: "用例编号",
+//     key:"testcaseNumber",//唯一标志	
+//     dataKey:"testcaseNumber",//data 的唯一标志符	
+//     // prop: "testcaseNumber",
+//     title: "用例编号",
 //     minWidth: "20%",
 //     width: "160px",
 //   },
-//   { prop: "testcaseName", label: "用例名称", minWidth: "60%" },
-//   { prop: "priority", label: "优先级", minWidth: "10%", width: "100px" },
+//   { key: "testcaseName", dataKey: "testcaseName",title: "用例名称", minWidth: "60%" },
+//   { key: "priority",dataKey: "priority", title: "优先级", minWidth: "10%", width: "100px" },
 // ]);
+
+const columns = ref<TableColumn[]>([
+  {
+    prop: "testcaseNumber",
+    label: "用例编号",
+    minWidth: "20%",
+    width: "160px",
+  },
+  { prop: "testcaseName", label: "用例名称", minWidth: "60%" },
+  { prop: "priority", label: "优先级", minWidth: "10%", width: "100px" },
+]);
 
 // 树的节点展开和选择相关的状态
 const expandOnClickNode = ref(true);
@@ -219,15 +221,15 @@ const handleCheckChange = (
       tableData.value.push(...newEntries);
     }
     //自动选中表格中新增的行
-    // nextTick(() => {
-      // if(tableRef.value){
-      //   const updatedSelection=[...selectedTableRows.value,...newData]
-      //   tableRef.value.clearSelection();//清空表格当前选中状态
-      //   console.log('tableRef.value',tableRef.value);
-      //   updatedSelection.forEach((row)=>tableRef.value.toggleRowSelection(row,true));
-      //   selectedTableRows.value=updatedSelection;
-      // }
-    // });
+    nextTick(() => {
+      if(tableRef.value){
+        const updatedSelection=[...selectedTableRows.value,...newData]
+        tableRef.value.clearSelection();//清空表格当前选中状态
+        console.log('tableRef.value',tableRef.value);
+        updatedSelection.forEach((row)=>tableRef.value.toggleRowSelection(row,true));
+        selectedTableRows.value=updatedSelection;
+      }
+    });
 
   } else if(!checked && node.testcaseList){
   // 如果节点取消选中，从表格中移除
@@ -267,7 +269,7 @@ const checkChildren = (data: TreeNodeData[]) => {
     // }
     if (!currentNodeExpand.value.includes(each.id)) {
       currentNodeExpand.value.push(each.id); // 记录展开节点的 ID
-       //加入zhankai 结点 列表
+       //加入展开 结点 列表
       if (!expandedNodes.value.includes(each)) {
         expandedNodes.value.push(each);
       }
@@ -280,8 +282,10 @@ const checkChildren = (data: TreeNodeData[]) => {
   });
 };
 
+// import getMockData from "@/api/data"
 // 获取全部数据：linkedId
 const asyncgetAll= async() => {
+  // const data = await getMockData().data;
   const data = await getLinkedSequencesByTpaId(linkedId.value) as unknown as any[];
   allData.value =data;
   treeData.value = data;
@@ -294,14 +298,12 @@ const asyncgetAll= async() => {
   //展开第一项及其子项
   currentNodeExpand.value.push(data[0].id);
   // currentNodeChecked.value.push(data[0].id);
-  checkChildren(data[0].childrenList);
+  if(data[0].hasChildren) checkChildren(data[0].childrenList);
   // updateTableData();
 };
 onMounted(()=>{
   asyncgetAll();
 })
-
-
 
 interface IEmits {
   (e: "update:selectedRows", value: any): void;
@@ -358,6 +360,10 @@ const nodeCollapse = (data: TreeNodeData, node: Node) => {
     display: flex;
     flex-direction: column;
     flex: 2;
+    .loading-container{
+      margin-top: 20px;
+      font-weight: bolder;
+    }
     :deep(.el-tree){
       flex: 1;
       min-height:200px

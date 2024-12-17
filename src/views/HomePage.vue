@@ -57,6 +57,7 @@ const waitingRows = ref<any[]>([]);
 const inProgressRows = ref<any[]>([]);
 const completedRows = ref<any[]>([]);
 const cancelledRows = ref<any[]>([]);
+const exceptionalRows = ref<any[]>([]);
 const sortedAllTableData = ref<any[]>([]);
 
 const waitingRowsLengthInAll = computed(() => waitingRows.value.length); //等待队列长度
@@ -78,7 +79,7 @@ const fetchTableData = (page: number, size: number) => {
   console.log("startIndex, endIndex", startIndex, endIndex);
 };
 
-//不同状态对应的operations操作选项 //0-等待中 1-执行中 2-已完成 3-已取消
+//不同状态对应的operations操作选项 //0-等待中 1-执行中 2-已完成 3-已取消 4-异常
 const waitingOperations = ref(["取消", "上移", "下移"]);
 const inProgressOperations = ref(["停止当前"]);
 const getOperationsForStatus = (status: number) => {
@@ -133,12 +134,17 @@ watchEffect(() => {
     if (!isEqual(newCancelledRows, cancelledRows.value)) {
       cancelledRows.value = newCancelledRows;
     }
+    const newExceptionalRows = getRowsByStatus(4, false);
+    if (!isEqual(newExceptionalRows, exceptionalRows.value)) {
+      exceptionalRows.value = newExceptionalRows;
+    }
 
     sortedAllTableData.value = [
       ...inProgressRows.value,
       ...waitingRows.value,
       ...completedRows.value,
       ...cancelledRows.value,
+      ...exceptionalRows.value,
     ];
 
     fetchTableData(currentPage.value, pageSize.value);
@@ -328,30 +334,40 @@ const onSelectedRows = (selectedRows:any) => {
 };
 
 // tae导入的数据 加入任务列表
-const onConfirmTAEImport = () => {
-  testManagementVisible.value = false; //关闭当前窗口；
-  setInert(testManagementDialog.value);
+const onConfirmTAEImport = async() =>  {
+  onCancelTAEImport()
+  // testManagementVisible.value = false; //关闭当前窗口；
+  // setInert(testManagementDialog.value);
 
   importDialogVisible.value = false; //关闭项目选项窗口；
   setInert(importDialog.value);
 
   //- 1.选中的所有usecase构成一个任务（to be continued）
   const ids = selectedRowsInTae.value.map((row) => row.id);
-  console.log("ids  in homepage", ids);
-  console.log("form data in home", formData.value);
-
-  //- 2.每条usecase为一个任务
-  selectedRowsInTae.value.forEach((row) => {
-    const params: ParamsToCreateTaskLinked = {
+  const params: ParamsToCreateTaskLinked = {
       case_number: `TASK-${generateTaskNumber()}`, //自建：（excel中的formData.value.taskId）,
-      converted_case_num: 1, //formData.value.converted_case_num,//
+      converted_case_num: ids.length, //formData.value.converted_case_num,//
       target_location: formData.value.target_location, //
       case_source: formData.value.case_source, //2
-      other_info: { linkedIdList: [row.id],tpaProjectId:linkedId.value,taeProjectName:taeProjectName.value }
+      other_info: { linkedIdList: ids,tpaProjectId:linkedId.value,taeProjectName:taeProjectName.value }
     };
-    getCreateRes(params);
     console.log("params====", params);
-  });
+    await getCreateRes(params);
+  console.log("ids  in homepage", ids);
+  // console.log("form data in home", formData.value);
+
+  //- 2.每条usecase为一个任务
+  // selectedRowsInTae.value.forEach((row) => {
+  //   const params: ParamsToCreateTaskLinked = {
+  //     case_number: `TASK-${generateTaskNumber()}`, //自建：（excel中的formData.value.taskId）,
+  //     converted_case_num: 1, //formData.value.converted_case_num,//
+  //     target_location: formData.value.target_location, //
+  //     case_source: formData.value.case_source, //2
+  //     other_info: { linkedIdList: [row.id],tpaProjectId:linkedId.value,taeProjectName:taeProjectName.value }
+  //   };
+  //   getCreateRes(params);
+  //   console.log("params====", params);
+  // });
 
   console.log("selectedRowsInTae.value", ...selectedRowsInTae.value);
   
@@ -362,7 +378,7 @@ const onConfirmTAEImport = () => {
 
 const onCancelTAEImport=()=>{
   testManagementVisible.value= false;
-
+  setInert(testManagementDialog.value);
 }
 
 // 停止所有任务

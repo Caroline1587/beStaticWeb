@@ -1,0 +1,48 @@
+.previewTemplate{
+  --dialog--header--bgcolor: var(--el-color-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:30px auto!important;
+  width: 1200px;
+  height: 90%;
+  .el-dialog__header{
+    background-color: var(--el-color-primary);
+    width: 100%;
+  }
+  .el-dialog__footer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .el-dialog__body{
+    flex: 1;
+    overflow: hidden;
+    width: 100%;
+  }
+  .dialog-body{
+    height: 100%;
+    margin-top: 0!important;
+  }
+  .recyclePreviewHeader{
+    border-radius: 4px;
+    width: 100%;
+    background: linear-gradient(0deg, #F3F5F8 0%, #F3F5F8 100%), #F9F9F9;
+    display: flex;
+    height: 32px;
+    padding: 0 16px;
+    .text-button{
+      margin-left: 8px;
+    }
+  }
+  .common-view-style{
+    padding: 0;
+    flex:1;
+    overflow: hidden;
+    .el-main{
+      padding: 0;
+    }
+  }
+}

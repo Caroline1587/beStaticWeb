@@ -209,7 +209,7 @@ async function onSelectFocused(value: string | number | undefined) {
 
     //linkedIdList==项目名称位置下拉信息
     // const linked=res.filter((project:IProjectsLinkStatus)=>project.isLinked).map((project:IProjectsLinkStatus)=>({ label: project.linkedProjectName, value: project.linkedId, disabled:false,projectName:project.projectName }));
-    formData.options = options.value;
+    formData.options = linked;
 
     return (options.value = linked);
   }
@@ -223,20 +223,15 @@ const onSelected = async () => {
   console.log("optionValue=====", optionValue.value); //获取project-id
   //options已获取
   console.log("options.value=====", options.value);
-  projectName.value=options.value.find((option: any)=>option.value===optionValue.value).projectName;
-
-  const confirmedOption: projectPathAbout = options.value.map((op: any) => {
-    if (optionValue.value === op.value) return op;
-  })[0]; //判断id获取对应的完整project信息
+  //判断id获取对应的完整project信息
+  const confirmedOption: projectPathAbout = options.value.find((op: any) => optionValue.value === op.value); 
+  projectName.value=confirmedOption.projectName;
 
   //获取所有允许保存位置：
   const allPath = await fetchTargetPath() as unknown as [];
-  const project: projectPathAbout = allPath.filter(
-    (path: projectPathAbout) => path.projectName == confirmedOption.projectName
-  )[0];
+  const project: projectPathAbout = allPath.find((path: projectPathAbout) => path.projectName == projectName.value)!;
 
-  console.log();
-  
+  console.log('保存的目标project==',project);
 
   const target_location = project.absPath;
   formData.target_location = target_location;

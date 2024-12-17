@@ -1,0 +1,31 @@
+// 为var提供变量
+:root{
+  // 字体类
+  --global--regular--text--color: #4B536A; // 全局基本字体色
+  --global--heavy--text--color: #243665; // 全局加深字体色
+  --global--light--text--color: #78839E; // 全局描述字体色
+  --global--placeholder--text--color: #B3BBD1; // 全局占位字体色
+
+  // 描边类
+  --global--regular--border--color: #EFF2F8; // 基本描边色
+  --global--heavy--border--color:#8D8E92; // 加深描边色
+}
+/* 全局生效的变量 */
+// 背景色
+$--global--app--background--color: #F3F5F8; // 全局背景色
+$--global--app--menu--background--color: #fff; // 侧边导航背景色
+$--global--app--hover--background--color: rgba(0, 45, 112, 0.05); // 全局悬浮背景色
+$--global--background--color: #fff; // 主要展示区域背景色
+
+// 字体类
+$--global--regular--text--color: #4B536A; // 全局基本字体色
+$--global--heavy--text--color: #243665; // 全局加深字体色
+$--global--light--text--color: #78839E; // 全局描述字体色
+$--global--placeholder--text--color: #B3BBD1; // 全局占位字体色
+
+// 描边类
+$--global--regular--border--color: #EFF2F8; // 基本描边色
+$--global--heavy--border--color:#8D8E92; // 加深描边色
+
+// 自定义属性字段详情展示的基本高度
+$--global--custom--field--height: 24px;

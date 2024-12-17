@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Search } from "@element-plus/icons-vue";
-import { ref, defineEmits, defineAsyncComponent } from "vue";
+import { ref, defineEmits,defineProps, defineAsyncComponent } from "vue";
 
 // import Tree from "@/views/dialogContent/Tree.vue";
 const Tree = defineAsyncComponent(

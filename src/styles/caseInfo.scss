@@ -1,0 +1,20 @@
+.el-header{
+  font-size: 16px;
+  color: $--global--light--text--color;
+  >span{
+    max-width: 50%;
+    line-height: 30px;
+    margin-left: 8px;
+    margin-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .el-icon{
+    min-width: 20px;
+  }
+  >span:last-child{
+    margin-right: 0;
+    color: $--global--heavy--text--color;
+  }
+}

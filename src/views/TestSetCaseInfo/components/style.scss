@@ -1,0 +1,23 @@
+.desc-title{
+  font-weight: bold;
+  color: $--global--heavy--text--color ;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  border-left: 1px solid var(--el-collapse-border-color);
+  border-right: 1px solid var(--el-collapse-border-color);
+}
+.table-desc{
+  display: flex;
+  height: 48px;
+  line-height: 48px;
+  border: 1px solid var(--el-collapse-border-color);
+  p{
+    padding: 0 10px;
+    box-sizing: border-box;
+    &:nth-of-type(1){
+      border-right: 1px solid var(--el-collapse-border-color);
+    }
+  }
+}

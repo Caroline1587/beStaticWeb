@@ -3,7 +3,11 @@ import HomePage from "@/views/HomePage.vue";
 </script>
 
 <template>
-  <HomePage />
+  <!-- <HomePage /> -->
+  <Suspense>
+    <router-view></router-view>
+  </Suspense>
+
 </template>
 
 <style lang="scss" scoped>

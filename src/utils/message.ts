@@ -9,6 +9,15 @@ export function successMessage(message: string, option?: MessageOptions) {
     offset: 48,
   });
 }
+export function message(message: string, option?: MessageOptions) {
+  ElMessage({
+    message,
+    ...option,
+    type: "success",
+    duration: 2 * 1000,
+    offset: 48,
+  });
+}
 export function warningMessage(message: string, option?: MessageOptions) {
   ElMessage({
     message,

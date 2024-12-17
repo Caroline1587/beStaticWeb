@@ -1,0 +1,47 @@
+// 左右滑出动画
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all .1s;
+  -webkit-transition: all .1s;
+  -moz-transition: all .1s;
+  -ms-transition: all .1s;
+  -o-transition: all .1s;
+}
+
+.fade-transform-enter-from {
+  opacity: 0;
+  // transform: translateX(-30px);
+  // -webkit-transform: translateX(-30px);
+  // -moz-transform: translateX(-30px);
+  // -ms-transform: translateX(-30px);
+  // -o-transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  // transform: translateX(30px);
+  // -webkit-transform: translateX(30px);
+  // -moz-transform: translateX(30px);
+  // -ms-transform: translateX(30px);
+  // -o-transform: translateX(30px);
+}
+
+// 透明度动画
+.opacity-transform-leave-active,
+.opacity-transform-enter-active {
+  transition: all .2s;
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  -ms-transition: all .2s;
+  -o-transition: all .2s;
+}
+
+.opacity-transform-enter-from,
+.opacity-transform-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+  -webkit-transform: translateY(10px);
+  -moz-transform: translateY(10px);
+  -ms-transform: translateY(10px);
+  -o-transform: translateY(10px);
+}
